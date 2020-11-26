@@ -13,6 +13,11 @@ const tvShowRouter = require("./routes/tvShowRoutes");
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/movies", movieRouter);
-app.use("/api/v1/tvs", tvShowRouter);
+app.use("/api/v1/tvshows", tvShowRouter);
+
+// handle all the routes that are not defined
+app.all("*", (req, res, next) => {
+  // all the routes that are undefined will go inside of this handler
+});
 
 module.exports = app;

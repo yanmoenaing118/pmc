@@ -12,7 +12,7 @@ const connect = () => {
   return mongoose.connect(DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: true,
+    useFindAndModify: false,
   });
 };
 

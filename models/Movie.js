@@ -20,4 +20,6 @@ const movieSchema = new mongoose.Schema({
   why_you_like: "",
 });
 
+movieSchema.pre("save", function () {});
+
 module.exports = mongoose.model("movie", movieSchema);

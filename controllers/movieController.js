@@ -1,60 +1,44 @@
 const Movie = require("./../models/Movie");
+const catchAsync = require("./../utils/catchAsync");
 
-exports.getAllMovies = async (req, res) => {
-  try {
-    const movies = await Movie.find();
-    res.status(200).json({
-      status: "success",
-      data: movies,
-    });
-  } catch (e) {
-    console.error(e);
-  }
-};
+exports.getAllMovies = catchAsync(async (req, res, next) => {
+  const movies = await Movie.find();
+  res.status(200).json({
+    status: "success",
+    data: movies,
+  });
+});
 
-exports.createMovie = async (req, res) => {
-  try {
-    const movie = await Movie.create(req.body);
-    res.status(201).json({
-      status: "success",
-      data: movie,
-    });
-  } catch (e) {
-    console.log(e);
-  }
-};
+exports.createMovie = catchAsync(async (req, res, next) => {
+  const movie = await Movie.create({
+    ...req.body,
+    user: "5fbf8a7e481b6b6cf4acb0f4",
+  });
+  res.status(201).json({
+    status: "success",
+    data: movie,
+  });
+});
 
-exports.getAMovie = async (req, res) => {
-  try {
-    const movie = await Movie.findById(req.params.id);
-    res.status(201).json({
-      status: "success",
-      data: movie,
-    });
-  } catch (e) {
-    console.error(e);
-  }
-};
+exports.getAMovie = catchAsync(async (req, res, next) => {
+  const movie = await Movie.findById(req.params.id);
+  res.status(201).json({
+    status: "success",
+    data: movie,
+  });
+});
 
-exports.updateAMovie = async (req, res) => {
-  try {
-    const movie = await Movie.findByIdAndUpdate(req.params.id, req.body);
-    res.status(200).json({
-      status: "success",
-      data: movie,
-    });
-  } catch (e) {
-    console.error(e);
-  }
-};
+exports.updateAMovie = catchAsync(async (req, res, next) => {
+  const movie = await Movie.findByIdAndUpdate(req.params.id, req.body);
+  res.status(200).json({
+    status: "success",
+    data: movie,
+  });
+});
 
-exports.deleteAMovie = async (req, res) => {
+exports.deleteAMovie = catchAsync(async (req, res, next) => {
   await Movie.findByIdAndDelete(req.params.id);
   res.status(200).json({
     status: "success",
   });
-  try {
-  } catch (e) {
-    console.error(e);
-  }
-};
+});
