@@ -10,11 +10,36 @@ exports.signup = catchAsync(async (req, res, next) => {
 });
 
 exports.login = catchAsync(async (req, res, next) => {
-  // find the user with email
-  // check the crendentials
+  const user = await User.findOne({
+    email: req.body.email,
+  });
+
+  let success = false;
+
+  if (
+    !user ||
+    !(await user.correctPassword(req.body.password, user.password))
+  ) {
+    success = false;
+  } else {
+    success = true;
+  }
+
+  if (success) {
+    return res.status(200).json({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  } else {
+    return res.status(404).json({
+      status: "fail",
+      error: {
+        message: "Invalid email or password",
+      },
+    });
+  }
 });
 
-exports.protect = catchAsync(async (req, res, next) => {
-  // the protected routes
-  // get the needed token to access the api in details
-});
+exports.protect = catchAsync(async (req, res, next) => {});

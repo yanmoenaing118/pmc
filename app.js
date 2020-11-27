@@ -10,8 +10,10 @@ app
 const authRouter = require("./routes/authRoutes");
 const movieRouter = require("./routes/movieRoutes");
 const tvShowRouter = require("./routes/tvShowRoutes");
+const userRouter = require("./routes/userRoutes");
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", userRouter);
 app.use("/api/v1/movies", movieRouter);
 app.use("/api/v1/tvshows", tvShowRouter);
 
