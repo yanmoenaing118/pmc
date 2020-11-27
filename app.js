@@ -17,9 +17,16 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/movies", movieRouter);
 app.use("/api/v1/tvshows", tvShowRouter);
 
-// handle all the routes that are not defined
 app.all("*", (req, res, next) => {
-  // all the routes that are undefined will go inside of this handler
+  // need a middleware to handle the undefiend routes on the server
+});
+
+app.use((err, req, res, next) => {
+  // need a global error handler
+  res.status(403).json({
+    status: "fail",
+    message: err.message,
+  });
 });
 
 module.exports = app;

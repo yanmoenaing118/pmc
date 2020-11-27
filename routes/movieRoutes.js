@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const movieController = require("../controllers/movieController");
+const authController = require("./../controllers/authController");
 
 router
   .route("/")
   .get(movieController.getAllMovies)
-  .post(movieController.createMovie);
+  .post(authController.protect, movieController.createMovie);
 
 router
   .route("/:id")
